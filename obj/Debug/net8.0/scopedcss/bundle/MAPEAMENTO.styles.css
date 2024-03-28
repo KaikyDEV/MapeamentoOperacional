@@ -1,0 +1,55 @@
+/* _content/MAPEAMENTO/Views/Shared/_Layout.cshtml.rz.scp.css */
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-xmrvvw3565] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-xmrvvw3565] {
+  color: #0077cc;
+}
+
+.btn-primary[b-xmrvvw3565] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-xmrvvw3565], .nav-pills .show > .nav-link[b-xmrvvw3565] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-xmrvvw3565] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-xmrvvw3565] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-xmrvvw3565] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-xmrvvw3565] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-xmrvvw3565] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+.quadradoAzul[b-xmrvvw3565]{
+  width: 100px;
+  color: blue;
+  height: 100px;
+}
