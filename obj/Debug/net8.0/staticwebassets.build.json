@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GV2dbjfHKtqxicXPgtWo72cyPHDtuYgAdUMJ8qHHTVA=",
+  "Hash": "PShQxYx/rJpg4wx24Eu5whp3LGghFfHDnDOB08b6iZ0=",
   "Source": "MAPEAMENTO",
   "BasePath": "_content/MAPEAMENTO",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "c:\\Users\\administrator\\Desktop\\MAPEAMENTO\\wwwroot\\image\\resolveAgora.png",
+      "SourceId": "MAPEAMENTO",
+      "SourceType": "Discovered",
+      "ContentRoot": "c:\\Users\\administrator\\Desktop\\MAPEAMENTO\\wwwroot\\",
+      "BasePath": "_content/MAPEAMENTO",
+      "RelativePath": "image/resolveAgora.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\resolveAgora.png"
     },
     {
       "Identity": "c:\\Users\\administrator\\Desktop\\MAPEAMENTO\\wwwroot\\js\\site.js",

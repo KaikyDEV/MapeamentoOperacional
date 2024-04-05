@@ -2,14 +2,15 @@
     ViewData["Title"] = "Lista de Erros";
 }
 
-<h1 class="mt-3">Lista de Erros</h1>
+<h1 class="mt-3">Lista de Erros:</h1>
 
-<table id="error-table" class="table table-striped mt-3">
+<table id="error-table" class="table">
     <thead>
         <tr>
-            <th scope="col">Erro</th>
-            <th scope="col">Status</th>
-            <th scope="col">Ações</th> 
+            <th>Erro</th>
+            <th>Status</th>
+            <th>Evento Acionado</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -17,53 +18,61 @@
     </tbody>
 </table>
 
+<!-- Adicionando um botão para enviar os dados salvos -->
+<button id="sendDataButton" class="btn btn-primary">Enviar Dados Salvos</button>
+
 @section scripts {
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let errosSelecionados = JSON.parse(localStorage.getItem("errosSelecionados"));
+        // Função para enviar os dados salvos para o servidor
+        async function sendSavedData() {
+            try {
+                // Obtenha os dados da tabela
+                const errorRows = document.querySelectorAll('#error-table tbody tr');
 
-            if (errosSelecionados) {
-                let errorTable = document.getElementById("error-table").getElementsByTagName("tbody")[0];
+                const data = [];
 
-                errosSelecionados.forEach(function (erro) {
-                    let newRow = errorTable.insertRow();
-                    newRow.insertCell().appendChild(document.createTextNode(erro.id));
-                    newRow.insertCell().appendChild(document.createTextNode(erro.status));
-
-                    // Adiciona o botão de exclusão à nova coluna
-                    let deleteButton = document.createElement("button");
-                    deleteButton.textContent = "Excluir";
-                    deleteButton.className = "btn btn-danger";
-                    deleteButton.onclick = function () {
-                        deleteRow(newRow);
+                errorRows.forEach(function(row) {
+                    const error = {
+                        erro: row.cells[0].textContent,
+                        status: row.cells[1].textContent,
+                        eventoAcionado: getCurrentDateTime()
                     };
-                    newRow.insertCell().appendChild(deleteButton);
+                    data.push(error);
                 });
+
+                // Envie os dados para o servidor
+                const response = await fetch('/Home/SaveData', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    console.log('Dados salvos enviados com sucesso.');
+                    alert('Dados Salvos');
+                    // Limpe a tabela após o envio bem-sucedido, se necessário
+                } else {
+                    console.error('Erro ao enviar os dados salvos:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Erro ao enviar os dados salvos:', error);
             }
-        });
-
-        function deleteRow(row) {
-            let rowIndex = row.rowIndex;
-            document.getElementById("error-table").deleteRow(rowIndex);
-
-            let id = row.cells[0].textContent; // Assume que a primeira célula contém o ID
-            removeErrorFromLocalStorage(id);
         }
 
-        function removeErrorFromLocalStorage(id) {
-            let errosSelecionados = JSON.parse(localStorage.getItem("errosSelecionados"));
+        // Adicionando evento de clique ao botão
+        document.getElementById('sendDataButton').addEventListener('click', sendSavedData);
 
-            let updatedErrors = errosSelecionados.filter(function (erro) {
-                return erro.id !== id;
-            });
-
-            localStorage.setItem("errosSelecionados", JSON.stringify(updatedErrors));
+        // Função para obter a data e hora atual no formato "dd/MM/yyyy HH:mm:ss"
+        function getCurrentDateTime() {
+            const now = new Date();
+            const formattedDateTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+            return formattedDateTime;
         }
     </script>
 }
 
-<!-- Adicione o link para o Bootstrap JS no final do corpo do documento -->
+<!-- Adicione o link para o Bootstrap CSS e JS no cabeçalho do documento -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>

@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MAPEAMENTO.Models;
+using MAPEAMENTO.Entidade;
+using Microsoft.EntityFrameworkCore;
 
 namespace MAPEAMENTO.Controllers
 {
@@ -27,10 +29,38 @@ namespace MAPEAMENTO.Controllers
             return View();
         }
 
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveData([FromBody] List<Erro> errors)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Salvar entradas no banco de dados
+                    foreach (var error in errors)
+                    {
+                        _context.Erros.Add(error);
+                    }
+
+                    await _context.SaveChangesAsync();
+                    return Ok(); // Resposta 200 OK
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Erro ao salvar entradas no banco de dados");
+                    return StatusCode(500); // Resposta 500 Internal Server Error
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState); // Resposta 400 Bad Request se o modelo não for válido
+            }
+        }
         public IActionResult ListaDeErros()
         {
-            var squares = _context.Squares.ToList();
-            return View(squares);
+            return View();
         }
 
         public IActionResult Privacy()
@@ -38,10 +68,7 @@ namespace MAPEAMENTO.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
+
+
 }
